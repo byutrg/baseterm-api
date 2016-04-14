@@ -1,0 +1,10 @@
+termbase:
+    type: rest
+    resource: "@ApiBundle/Resources/config/route/termbase.yml"
+entry:
+    type: rest
+    resource: "@ApiBundle/Resources/config/route/entry.yml"
+
+person:
+    type: rest
+    resource: "@ApiBundle/Resources/config/route/person.yml"

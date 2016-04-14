@@ -1,0 +1,24 @@
+entry_collection:
+    pattern: /termbases/{termbase_id}/entries
+    defaults: { _controller: ApiBundle:EntryREST:cget, _format: json }
+    methods: ["GET"]
+
+entry_post:
+    pattern: /termbases/{termbase_id}/entries
+    defaults: { _controller: ApiBundle:EntryREST:post, _format: json }
+    methods: ["POST"]
+    
+entry_get:
+    pattern: /termbases/{termbase_id}/entries/{entity}.{_format}
+    defaults: { _controller: ApiBundle:EntryREST:get, _format: json }
+    methods: ["GET"]
+
+entry_put:
+    pattern: /termbases/{termbase_id}/entries/{entity}.{_format}
+    defaults: { _controller: ApiBundle:EntryREST:put, _format: json }
+    methods: ["PUT"]
+    
+entry_delete:
+    pattern: /termbases/{termbase_id}/entries/{entity}.{_format}
+    defaults: { _controller: ApiBundle:EntryREST:delete, _format: json }
+    methods: ["DELETE"]

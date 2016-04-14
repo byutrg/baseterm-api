@@ -8,17 +8,17 @@
 
 namespace ApiBundle\Entity;
 
-use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use ApiBundle\Doctrine\RandomIdGenerator;
 /**
- * Description of Person
+ * Description of Termbase
  *
  * @author James Hayes <james.s.hayes@gmail.com>
  * @ORM\Entity
  * @Gedmo\SoftDeleteable(fieldName="deleted_at")
  */
-class Person
+class Termbase
 {
 //	/**
 //	 * @var integer $key
@@ -38,21 +38,34 @@ class Person
 	protected $id;
 	
 	/**
+	 * @var string $name
+	 * @ORM\Column(type="string")
+	 */
+	protected $name;
+	
+	/**
+	 * @var string $working_language
+	 * @ORM\Column(type="string")
+	 */
+	protected $working_language;
+	
+	/**
 	 * @var \DateTime $deleted_at
 	 * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
 	 */
 	protected $deleted_at;
 	
 	/**
-	 * @ORM\Column(type="text")
+	 * @ORM\OneToMany(targetEntity="Entry", mappedBy="termbase")
+	 * @ORM\JoinColumn(name="entry_id", referencedColumnName="id")
 	 */
-	protected $data;
-
+	protected $entries;
+	
 	/**
-	 * @ORM\ManyToOne(targetEntity="Termbase", inversedBy="people")
-	 * @ORM\JoinColumn(name="termbase_id", referencedColumnName="id", nullable=false)
+	 * @ORM\OneToMany(targetEntity="Person", mappedBy="termbase")
+	 * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
 	 */
-	protected $termbase;
+	protected $people;
 
     /**
      * Get id
@@ -65,11 +78,59 @@ class Person
     }
 
     /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Termbase
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set workingLanguage
+     *
+     * @param string $workingLanguage
+     *
+     * @return Termbase
+     */
+    public function setWorkingLanguage($workingLanguage)
+    {
+        $this->working_language = $workingLanguage;
+
+        return $this;
+    }
+
+    /**
+     * Get workingLanguage
+     *
+     * @return string
+     */
+    public function getWorkingLanguage()
+    {
+        return $this->working_language;
+    }
+
+    /**
      * Set deletedAt
      *
      * @param \DateTime $deletedAt
      *
-     * @return Person
+     * @return Termbase
      */
     public function setDeletedAt($deletedAt)
     {
@@ -86,53 +147,5 @@ class Person
     public function getDeletedAt()
     {
         return $this->deleted_at;
-    }
-
-    /**
-     * Set data
-     *
-     * @param string $data
-     *
-     * @return Person
-     */
-    public function setData($data)
-    {
-        $this->data = $data;
-
-        return $this;
-    }
-
-    /**
-     * Get data
-     *
-     * @return string
-     */
-    public function getData()
-    {
-        return $this->data;
-    }
-
-    /**
-     * Set termbase
-     *
-     * @param \ApiBundle\Entity\Termbase $termbase
-     *
-     * @return Person
-     */
-    public function setTermbase(\ApiBundle\Entity\Termbase $termbase = null)
-    {
-        $this->termbase = $termbase;
-
-        return $this;
-    }
-
-    /**
-     * Get termbase
-     *
-     * @return \ApiBundle\Entity\Termbase
-     */
-    public function getTermbase()
-    {
-        return $this->termbase;
     }
 }

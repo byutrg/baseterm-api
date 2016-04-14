@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Term Entry",
+    "type": "object",
+    "properties": {
+	  "id": {
+		  "type": "string",
+		  "maxLength": 64
+	  },
+      "name": {
+        "type": "string",
+        "maxLength": 40
+      },
+      "working_language": {
+          "type": "string",
+          "maxLength": 10
+      }
+    },
+    "required": ["id", "name", "working_language"],
+    "additionalProperties": false
+}
+

@@ -19,6 +19,8 @@ class AppKernel extends Kernel
 			new FOS\RestBundle\FOSRestBundle(),
 			new JMS\SerializerBundle\JMSSerializerBundle(),
 			new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+			new Nelmio\CorsBundle\NelmioCorsBundle(),
+			new Voryx\RESTGeneratorBundle\VoryxRESTGeneratorBundle(),
             new ApiBundle\ApiBundle()
         );
 

@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Term Entry",
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "email": {
+          "type": "string",
+          "format": "email"
+      },
+      "fn": {
+         "type": "string"
+      },
+      "role": {
+          "type": "string"
+      }
+    },
+    "required": ["id"],
+    "additionalProperties": true
+}
+

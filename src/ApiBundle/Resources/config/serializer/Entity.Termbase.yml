@@ -1,0 +1,9 @@
+ApiBundle\Entity\Termbase:
+    exclusion_policy:	ALL
+    properties:
+        id:
+            expose: true
+        name:
+            expose: true
+        working_language:
+            expose: true

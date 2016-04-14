@@ -1,0 +1,24 @@
+person_collection:
+    pattern: /termbases/{termbase_id}/people
+    defaults: { _controller: ApiBundle:PersonREST:cget, _format: json }
+    methods: ["GET"]
+
+person_post:
+    pattern: /termbases/{termbase_id}/people
+    defaults: { _controller: ApiBundle:PersonREST:post, _format: json }
+    methods: ["POST"]
+    
+person_get:
+    pattern: /termbases/{termbase_id}/people/{entity}.{_format}
+    defaults: { _controller: ApiBundle:PersonREST:get, _format: json }
+    methods: ["GET"]
+
+person_put:
+    pattern: /termbases/{termbase_id}/people/{entity}.{_format}
+    defaults: { _controller: ApiBundle:PersonREST:put, _format: json }
+    methods: ["PUT"]
+    
+person_delete:
+    pattern: /termbases/{termbase_id}/people/{entity}.{_format}
+    defaults: { _controller: ApiBundle:PersonREST:delete, _format: json }
+    methods: ["DELETE"]

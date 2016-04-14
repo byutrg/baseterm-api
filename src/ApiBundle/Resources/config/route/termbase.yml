@@ -1,0 +1,41 @@
+termbase_collection:
+    pattern: /termbases
+    defaults: { _controller: ApiBundle:TermbaseREST:cget, _format: json }
+    methods: ["GET"]
+
+termbase_post:
+    pattern: /termbases
+    defaults: { _controller: ApiBundle:TermbaseREST:post, _format: json }
+    methods: ["POST"]
+    
+termbase_get:
+    pattern: /termbases/{entity}.{_format}
+    defaults: { _controller: ApiBundle:TermbaseREST:get, _format: json }
+    methods: ["GET"]
+
+termbase_put:
+    pattern: /termbases/{entity}.{_format}
+    defaults: { _controller: ApiBundle:TermbaseREST:put, _format: json }
+    methods: ["PUT"]
+    
+termbase_delete:
+    pattern: /termbases/{entity}.{_format}
+    defaults: { _controller: ApiBundle:TermbaseREST:delete, _format: json }
+    methods: ["DELETE"]
+
+termbase_export:
+    pattern: /termbases/{entity}/export.{_format}
+    defaults: { _controller: ApiBundle:TermbaseREST:export, _format: xml }
+    methods: ["GET"]
+
+termbase_import:
+    pattern: /import
+    defaults: { _controller: ApiBundle:TermbaseREST:import }
+    methods: ["POST"]
+
+termbase_import_form:
+    pattern: /import.{_format}
+    defaults: { _controller: ApiBundle:TermbaseREST:import, _format: html }
+    methods: ["GET"]
+    requirements:
+        _format: html

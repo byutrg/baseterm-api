@@ -1,0 +1,7 @@
+ApiBundle\Entity\Person:
+    exclusion_policy:	ALL
+    properties:
+        id:
+            expose: true
+        data:
+            expose: true

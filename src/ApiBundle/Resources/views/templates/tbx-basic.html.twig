@@ -1,0 +1,170 @@
+{%- macro reference(internal) -%}
+  {%- for ref in internal %}
+  <ref type="crossReference" target="{{ ref['target'] }}">{{ ref['content'] }}</ref>
+  {% endfor -%}
+{%- endmacro -%}
+{%- macro ext_reference(external) -%}
+  {%- for xref in external %}
+  <xref type="externalCrossReference" target="{{ xref['target'] }}">{{ xref['content'] }}</xref>
+  {% endfor -%}
+{% endmacro -%}
+{%- macro definition(definitions) %}
+  {%- for defin in definitions %}
+    {%- if defin['source'] is defined %}
+  <descripGrp>
+    <descrip type="definition">{{ defin['content'] }}</descrip>
+    <admin type="source">{{ defin['source'] }}</admin>
+  </descripGrp>
+    {% else %}
+  <descrip type="definition">{{ defin['content'] }}</descrip>
+    {%- endif -%}
+  {% endfor -%}
+{% endmacro -%}
+{%- macro context_type(contexts) %}
+  {%- for con in contexts %}
+    {%- if con['source'] is defined %}
+  <descripGrp>
+    <descrip type="context">{{ con['content'] }}</descrip>
+    <admin type="source">{{ con['source'] }}</admin>
+  </descripGrp>
+    {% else %}
+  <descrip type="context">{{ con['content'] }}</descrip>
+    {%- endif -%}
+  {% endfor -%}
+{% endmacro -%}
+{%- macro transaction(transactions) %}
+  {%- for transac in transactions %}
+  <transacGrp>
+    <transac type="transactionType">{{ transac['type'] }}</transac>
+    {%- if 'person' in transac %}
+    <transacNote type="responsibility" target="{{ transac['target'] }}">{{ transac['person'] }}</transacNote>
+    {%- endif -%}
+    {%- if 'date' in transac %}
+    <date>{{ transac['date'] }}</date>
+    {%- endif %}
+  </transacGrp>
+  {% endfor -%}
+{% endmacro -%}
+{%- macro term_note(term, key, type) %}
+  {%- if term[key] is defined %}
+  <termNote type="{{ type }}">{{ term[key] }}</termNote>
+  {%- endif -%}
+{% endmacro -%}
+
+{% import _self as macros %}
+<?xml version='1.0'?>
+<!DOCTYPE martif SYSTEM "TBXBasiccoreStructV02.dtd">
+<!-- Created by the CRITI terminology management system. -->
+<martif type="TBX-Basic" xml:lang="{{ working_language }}">
+  <martifHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>CRITI TBX-Basic File</title>
+      </titleStmt>
+      <sourceDesc>
+        <p>CRITI system tbx export.</p>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <p type="XCSURI">http://www.lisa.org/fileadmin/standards/tbx_basic/TBXBasicXCSV02.xcs</p>
+    </encodingDesc>
+  </martifHeader>
+  <text>
+    <body>
+      {%- for entry in entries %}
+      <termEntry id="{{ entry['id'] }}">
+        {%- if entry['subjectField'] is defined %}
+        <descrip type="subjectField">{{ entry['subjectField'] }}</descrip>
+        {%- endif -%}
+		{%- if entry['images'] is defined -%}
+        {%- for image in entry['images'] %}
+        <xref type="xGraphic" target="{{ image['target'] }}">{{ image['content'] }}</xref>
+        {% endfor -%}
+		{%- endif -%}
+		{%- if entry['notes'] is defined -%}
+        {%- for note in entry['notes'] %}
+        <note>{{ note }}</note>
+        {% endfor -%}
+		{%- endif -%}
+		{%- if entry['references'] is defined -%}
+        {{- macros.reference(entry['references']) }}
+		{%- endif -%}
+		{%- if entry['external_references'] is defined -%}
+		{{- macros.ext_reference(entry['external_references']) -}}
+		{%- endif -%}
+		{%- if entry['definitions'] is defined -%}
+        {{- macros.definition(entry['definitions']) }}
+		{%- endif -%}
+		{%- if entry['transactions'] is defined -%}
+        {{- macros.transaction(entry['transactions']) }}
+		{%- endif -%}
+        {%- for lang in entry['languages'] %}
+        <langSet xml:lang="{{ lang['code'] }}">
+			{%- if lang['definitions'] is defined -%}
+          {{- macros.definition(lang['definitions']) }}
+		  {%- endif -%}
+		  {%- if lang['transactions'] is defined -%}
+          {{- macros.transaction(lang['transactions']) }}
+		  {%- endif -%}
+          {%- for term in lang['terms'] %}
+          <tig>
+            <term>{{ term['term'] }}</term>
+            {{- macros.term_note(term, 'type', 'termType') }}
+            {{- macros.term_note(term, 'pos', 'partOfSpeech') }}
+            {{- macros.term_note(term, 'gender', 'grammaticalGender') }}
+            {{- macros.term_note(term, 'status', 'administrativeStatus')  }}
+            {{- macros.term_note(term, 'geo', 'geographicalUsage') }}
+			{%- if term['locations'] is defined -%}
+            {%- for location in term['locations'] %}
+            <termNote type="termLocation">{{ location }}</termNote>
+            {% endfor -%}
+			{%- endif -%}
+            {%- if term['source'] is defined %}
+            <admin type="source">{{ term['source'] }}</admin>
+            {%- endif -%}
+			{%- if term['customers'] is defined -%}
+            {%- for customer in term['customers'] %}
+            <admin type="customerSubset">{{ customer }}</admin>
+            {% endfor -%}
+			{%- endif -%}
+			{%- if term['projects'] is defined -%}
+            {%- for project in term['projects'] %}
+            <admin type="projectSubset">{{ project }}</admin>
+            {% endfor -%}
+			{%- endif -%}
+			{%- if term['contexts'] is defined -%}
+            {{- macros.context_type(term['contexts']) }}
+			{%- endif -%}
+			{%- if term['references'] is defined -%}
+            {{- macros.reference(term['references']) }}
+			{%- endif -%}
+			{%- if term['external_references'] is defined -%}
+			{{- macros.ext_reference(term['external_references']) -}}
+			{%- endif -%}
+			{%- if term['transactions'] is defined -%}
+            {{- macros.transaction(term['transactions']) }}
+			{%- endif -%}
+          </tig>
+          {%- endfor %}
+        </langSet>
+        {%- endfor %}
+      </termEntry>
+      {%- endfor %}
+    </body>
+    {%- if people %}
+    <back>
+      <refObjectList type="respPerson">
+        {%- for person in people %}
+        <refObject id="{{ person['id'] }}">
+          {%- for key, value in person.items() %}
+            {%- if key != 'id' %}
+          <item type="{{ key }}">{{ value }}</item>
+            {%- endif -%}
+          {%- endfor %}
+        </refObject>
+        {%- endfor %}
+      </refObjectList>
+    </back>
+    {%- endif -%}
+  </text>
+</martif>
