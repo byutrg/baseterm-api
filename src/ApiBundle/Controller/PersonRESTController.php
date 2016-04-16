@@ -75,27 +75,24 @@ class PersonRESTController extends VoryxController
      *
      * @View(serializerEnableMaxDepthChecks=true)
      *
-     * @param ParamFetcherInterface $paramFetcher
+     * @param Request $request
      *
      * @return Response
      *
-     * @QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing notes.")
-     * @QueryParam(name="limit", requirements="\d+", default="20", description="How many notes to return.")
-     * @QueryParam(name="order_by", nullable=true, array=true, description="Order by fields. Must be an array ie. &order_by[name]=ASC&order_by[description]=DESC")
-     * @QueryParam(name="filters", nullable=true, array=true, description="Filter by fields. Must be an array ie. &filters[id]=3")
      */
-    public function cgetAction(ParamFetcherInterface $paramFetcher)
+    public function cgetAction(Request $request)
     {
         try {
-            $offset = $paramFetcher->get('offset');
-            $limit = $paramFetcher->get('limit');
-            $order_by = $paramFetcher->get('order_by');
-            $filters = !is_null($paramFetcher->get('filters')) ? $paramFetcher->get('filters') : array();
-
+			$termbase_id = $request->attributes->get('termbase_id');
             $em = $this->getDoctrine()->getManager();
-            $entities = $em->getRepository('ApiBundle:Person')->findBy($filters, $order_by, $limit, $offset);
+            $entities = $em->getRepository('ApiBundle:Person')->findBy(array('termbase'=>$termbase_id));
+			$people = array();
             if ($entities) {
-                return $entities;
+                foreach($entities as $Person)
+				{
+					array_push($people, json_decode($Person->getData(), true));
+				}
+				return $people;
             }
 
             return FOSView::create('Not Found', Codes::HTTP_NO_CONTENT);
