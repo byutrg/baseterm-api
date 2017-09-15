@@ -76,6 +76,36 @@ php app/console cache:clear
 
 A TBX file may be manually imported into the BaseTerm API by visiting /import.html.  For example, if BaseTerm API is installed at localhost/basterm-api/web, then you can go to localhost/baseterm-api/web/import.html to manually import a file.
 
+### Routes
+
+Routes can be seen by using:
+```
+php app/console debug:router
+```
+
+Routes:
+
+```
+ termbase_collection      GET    ANY    ANY  /termbases.{_format}
+ termbase_post            POST   ANY    ANY  /termbases.{_format}
+ termbase_get             GET    ANY    ANY  /termbases/{entity}.{_format}
+ termbase_put             PUT    ANY    ANY  /termbases/{entity}.{_format}
+ termbase_delete          DELETE ANY    ANY  /termbases/{entity}.{_format}
+ termbase_export          GET    ANY    ANY  /termbases/{entity}/export.{_format}
+ termbase_import          POST   ANY    ANY  /import.{_format}
+ termbase_import_form     GET    ANY    ANY  /import.{_format}
+ entry_collection         GET    ANY    ANY  /termbases/{termbase_id}/entries.{_format}
+ entry_post               POST   ANY    ANY  /termbases/{termbase_id}/entries.{_format}
+ entry_get                GET    ANY    ANY  /termbases/{termbase_id}/entries/{entity}.{_format}
+ entry_put                PUT    ANY    ANY  /termbases/{termbase_id}/entries/{entity}.{_format}
+ entry_delete             DELETE ANY    ANY  /termbases/{termbase_id}/entries/{entity}.{_format}
+ person_collection        GET    ANY    ANY  /termbases/{termbase_id}/people.{_format}
+ person_post              POST   ANY    ANY  /termbases/{termbase_id}/people.{_format}
+ person_get               GET    ANY    ANY  /termbases/{termbase_id}/people/{entity}.{_format}
+ person_put               PUT    ANY    ANY  /termbases/{termbase_id}/people/{entity}.{_format}
+ person_delete            DELETE ANY    ANY  /termbases/{termbase_id}/people/{entity}.{_format}
+ ```
+
 ## Credits
 
 Special thanks to the Symfony team and all of the developers who have created libraries for it!
