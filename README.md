@@ -27,7 +27,7 @@ cd baseterm-api
 
 ### Setup MySQL Database and Install Symfony
 
-You will need to create a database for BaseTerm in MySQL along with a user and a password.
+You will need to create a database for BaseTerm API in MySQL along with a user and a password.
 
 Now you must install [Composer](https://getcomposer.org/download/).  You can download it from the website or do the following:
 
