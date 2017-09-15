@@ -47,13 +47,23 @@ class TermbaseRESTController extends VoryxController
 		return $error_message;
 	}
 	
-	public function validateJSON($entity)
+	public function validateJSON($entity, $is_new = false)
 	{
 		$valid = true;
 		//Validate against Schema
 		$retriever = new \JsonSchema\Uri\UriRetriever;
-		$path = $this->get('kernel')
+        
+        if (!$is_new)
+        {
+            $path = $this->get('kernel')
 				->locateResource("@ApiBundle/Resources/config/schema/termbase.json");
+        }
+        else
+        {
+            $path = $this->get('kernel')
+				->locateResource("@ApiBundle/Resources/config/schema/termbase_new.json");
+        }
+        
 		$schema = $retriever->retrieve($path);
 		$jsonContent = $this->get('jms_serializer')
 				->serialize($entity, 'json');
@@ -148,9 +158,9 @@ class TermbaseRESTController extends VoryxController
         $form = $this->createForm(new TermbaseType(), $entity, array("method" => $request->getMethod()));
         $this->removeExtraFields($request, $form);
         $form->handleRequest($request);
-
+        
         if ($form->isValid()) {
-			if ($this->validateJSON($entity))
+			if ($this->validateJSON($entity, true))
 			{
 				$em = $this->getDoctrine()->getManager();
 				try{
