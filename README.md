@@ -2,9 +2,9 @@
 
 A Symfony project created on April 4, 2016.
 
-BaseTerm API is an open-source Symfony based API intended to be used by [BaseTerm](https://github.com/byutrg/baseterm). BaseTerm API stores all termbase related information used by BaseTerm. The API can be very picky currently about the kinds of TBX files it will accept. 
+BaseTerm API is an open-source Symfony based API intended to be used by [BaseTerm](https://github.com/byutrg/baseterm). BaseTerm API stores all termbase (terminology database) related information used by BaseTerm. The API only supports TBX-Basic files for import/export.
 
-This API is similar to the Python based [CRITI API](https://github.com/LexTerm/CRITI/tree/master/server) and either can be used by BaseTerm with minor modifications.
+This API uses the same routes as the Python based [CRITI API](https://github.com/LexTerm/CRITI/tree/master/server) and either API can be used by BaseTerm.
 
 
 ## Installation
@@ -83,27 +83,27 @@ Routes can be seen by using:
 php app/console debug:router
 ```
 
-Routes:
+Routes (Edited for clarity):
 
 ```
- termbase_collection      GET    ANY    ANY  /termbases.{_format}
- termbase_post            POST   ANY    ANY  /termbases.{_format}
- termbase_get             GET    ANY    ANY  /termbases/{entity}.{_format}
- termbase_put             PUT    ANY    ANY  /termbases/{entity}.{_format}
- termbase_delete          DELETE ANY    ANY  /termbases/{entity}.{_format}
- termbase_export          GET    ANY    ANY  /termbases/{entity}/export.{_format}
- termbase_import          POST   ANY    ANY  /import.{_format}
- termbase_import_form     GET    ANY    ANY  /import.{_format}
- entry_collection         GET    ANY    ANY  /termbases/{termbase_id}/entries.{_format}
- entry_post               POST   ANY    ANY  /termbases/{termbase_id}/entries.{_format}
- entry_get                GET    ANY    ANY  /termbases/{termbase_id}/entries/{entity}.{_format}
- entry_put                PUT    ANY    ANY  /termbases/{termbase_id}/entries/{entity}.{_format}
- entry_delete             DELETE ANY    ANY  /termbases/{termbase_id}/entries/{entity}.{_format}
- person_collection        GET    ANY    ANY  /termbases/{termbase_id}/people.{_format}
- person_post              POST   ANY    ANY  /termbases/{termbase_id}/people.{_format}
- person_get               GET    ANY    ANY  /termbases/{termbase_id}/people/{entity}.{_format}
- person_put               PUT    ANY    ANY  /termbases/{termbase_id}/people/{entity}.{_format}
- person_delete            DELETE ANY    ANY  /termbases/{termbase_id}/people/{entity}.{_format}
+ termbase_collection      GET           /termbases
+ termbase_post            POST          /termbases
+ termbase_get             GET           /termbases/{termbase_id}
+ termbase_put             PUT           /termbases/{termbase_id}
+ termbase_delete          DELETE        /termbases/{termbase_id}
+ termbase_export          GET           /termbases/{termbase_id}/export
+ termbase_import          POST          /import
+ termbase_import_form     GET           /import.html
+ entry_collection         GET           /termbases/{termbase_id}/entries
+ entry_post               POST          /termbases/{termbase_id}/entries
+ entry_get                GET           /termbases/{termbase_id}/entries/{entry_id}
+ entry_put                PUT           /termbases/{termbase_id}/entries/{entry_id}
+ entry_delete             DELETE        /termbases/{termbase_id}/entries/{entry_id}
+ person_collection        GET           /termbases/{termbase_id}/people
+ person_post              POST          /termbases/{termbase_id}/people
+ person_get               GET           /termbases/{termbase_id}/people/{person_id}
+ person_put               PUT           /termbases/{termbase_id}/people/{person_id}
+ person_delete            DELETE        /termbases/{termbase_id}/people/{person_id}
  ```
 
 ## Credits
