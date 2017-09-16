@@ -1,6 +1,6 @@
 # BaseTerm API
 
-A Symfony project created on September 16, 2015, 3:57 pm.
+A Symfony project created on April 4, 2016.
 
 BaseTerm API is an open-source Symfony based API intended to be used by [BaseTerm](https://github.com/byutrg/baseterm). BaseTerm API stores all termbase related information used by BaseTerm. The API can be very picky currently about the kinds of TBX files it will accept. 
 
